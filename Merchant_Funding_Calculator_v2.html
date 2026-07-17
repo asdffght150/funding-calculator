@@ -1,0 +1,12 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Funding Options</title><style>
+body{font-family:Arial;background:#eef2f7;padding:30px} .c{max-width:850px;margin:auto;background:#fff;border-radius:16px;padding:30px;box-shadow:0 8px 24px rgba(0,0,0,.15)}h1{text-align:center;color:#0b4ea2}.big{text-align:center;font-size:42px;color:#0b4ea2;font-weight:700}input{width:100%}table{width:100%;border-collapse:collapse;margin-top:20px}td,th{padding:10px;border-bottom:1px solid #ddd;text-align:center}.note{margin-top:20px;background:#f5f9ff;padding:16px;border-left:4px solid #0b4ea2}
+</style></head><body><div class=c><h1>Choose a Funding Amount</h1><p style="text-align:center">Move the slider to compare weekly payments and early payoff amounts.</p><div class=big id=a>$110,000</div><input id=s type=range min=110000 max=160000 step=5000 value=110000><table><tr><th>Weekly Payment</th><th>Term</th></tr><tr><td id=w>$3,058</td><td>50 Weeks</td></tr></table><h2>Potential Savings With Early Payoff</h2><table><tr><th>Pay Off Within</th><th>Estimated Savings</th></tr><tr><td>30 Days</td><td id=s30></td></tr><tr><td>60 Days</td><td id=s60></td></tr><tr><td>90 Days</td><td id=s90></td></tr></table><div class=note><b>Why consider a larger approval?</b><br>You don't have to keep the advance outstanding for the full 50 weeks. If your construction projects fund sooner than expected, you can pay off early and take advantage of the discounted payoff program above. This gives you access to more working capital now while maintaining flexibility.</div></div><script>
+const pts={110000:3058,125000:3475,145000:4031,160000:4480};
+function pay(x){let k=Object.keys(pts).map(Number);for(let i=0;i<k.length-1;i++){let a=k[i],b=k[i+1];if(x>=a&&x<=b){return Math.round(pts[a]+(pts[b]-pts[a])*(x-a)/(b-a));}}return pts[160000]}
+function fmt(n){return '$'+n.toLocaleString()}
+function upd(){let x=+s.value;a.textContent=fmt(x);w.textContent=fmt(pay(x));const full=1.39;
+s30.textContent=fmt(Math.round(x*(full-1.13)));
+s60.textContent=fmt(Math.round(x*(full-1.15)));
+s90.textContent=fmt(Math.round(x*(full-1.17)));}
+s.oninput=upd;upd();
+</script></body></html>
